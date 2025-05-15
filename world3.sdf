@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<sdf version="1.10"> 
+<sdf version="1.11"> 
     <world name="current_world">
         <physics name="1ms" type="ignored">
             <max_step_size>0.001</max_step_size>
@@ -30,7 +30,7 @@
 	    <scene>scene</scene>
 	    <ambient_light>0.4 0.4 0.4</ambient_light>
 	    <background_color>0.8 0.8 0.8</background_color>
-	    <camera_pose>0 4 1 0 0 -1.57</camera_pose>
+	    <camera_pose>0 -.2 .05 0 0 1.57</camera_pose>
 	</plugin>
 
 	<!-- Plugins that add functionality to the scene -->
@@ -172,7 +172,7 @@
 	</plugin>     
       </gui>
 	<light type="directional" name="sun">
-	    <cast_shadows>true</cast_shadows>
+	    <cast_shadows>false</cast_shadows>
 	    <pose>0 0 10 0 0 0</pose>
 	    <diffuse>0.8 0.8 0.8 1</diffuse>
 	    <specular>0.2 0.2 0.2 1</specular>
@@ -209,52 +209,141 @@
 		</visual>
 	    </link>
 	</model>  
-    <model name="mdlLeg">
-      <pose>0 0 0.1 0 0 0</pose>
-	<link name="lnkPlantar">
-	<inertial>
-	  <mass>1</mass>
-	  <inertia>  <ixx>0.083</ixx> <iyy>0.083</iyy>
-	    <izz>0.166</izz>
-	    <ixy>0</ixy>
-	    <ixz>0</ixz>
-	    <iyz>0</iyz>
-	  </inertia>
-	</inertial>
-	<collision name="collision">
-	  <geometry>
-	    <box>
-	      <size>2 1 0.2</size> </box>
-	  </geometry>
-	   <surface>
-	    <friction>
-	      <ode>
-		<mu>0.5</mu>
-		<mu2>0.5</mu2>
-	      </ode>
-	    </friction>
-	  </surface>
-	</collision>
-	<visual name="visual">
-	  <geometry>
-	    <box>
-	      <size>1 1 0.2</size>
-	    </box>
-	  </geometry>
-	  <material>
-	    <ambient>0 0 1 1</ambient>  <diffuse>0 0 1 1</diffuse>
-	    <specular>0.1 0.1 0.1 1</specular>
-	  </material>
-	</visual>
-	</link>  
 	
-	<link name="lnkTibia">
-		<pose relative_to="jntPlantar">0 0 1 0 0 0</pose>
+<!-- Foot -->
+    <model name="mdlFoot">
+	<pose>0 0 0.0013 0 0 0</pose>
+	<link name="lnkPlantar">
 		<inertial>
-		  <mass>0.5</mass>
+		  <mass>.223</mass>
+		  <inertia>  <ixx>0.000108</ixx> <iyy>0.000192</iyy>
+		    <izz>0.0003</izz>
+		    <ixy>0</ixy>
+		    <ixz>0</ixz>
+		    <iyz>0</iyz>
+		  </inertia>
+		</inertial>
+		<collision name="collision">
+		  <geometry>
+		    <box>
+		      <size>0.1016 0.0762 0.00254</size> </box>
+		  </geometry>
+		   <surface>
+		    <friction>
+		      <ode>
+			<mu>0.5</mu>
+			<mu2>0.5</mu2>
+		      </ode>
+		    </friction>
+		  </surface>
+		</collision>
+		<visual name="visual">
+		  <geometry>
+		    <box>
+		      <size>0.1016 0.0762 0.00254</size>
+		    </box>
+		  </geometry>
+		  <material>
+			<ambient>0 0 1 1</ambient>  
+			<diffuse>0 0 1 1</diffuse>
+			<specular>0.1 0.1 0.1 1</specular>
+		  </material>
+		</visual>
+	</link>
+	
+	<link name="lnkHeel">
+		<pose relative_to="lnkPlantar">0 -0.146647 0 0 0 0</pose>
+		<inertial>
+		  <mass>.223</mass>
+		  <inertia>  <ixx>0.000108</ixx> <iyy>0.000192</iyy>
+		    <izz>0.0003</izz>
+		    <ixy>0</ixy>
+		    <ixz>0</ixz>
+		    <iyz>0</iyz>
+		  </inertia>
+		</inertial>
+		<collision name="collision">
+		  <geometry>
+		    <box>
+		      <size>0.1016 0.0762 0.00254</size> </box>
+		  </geometry>
+		   <surface>
+		    <friction>
+		      <ode>
+			<mu>0.5</mu>
+			<mu2>0.5</mu2>
+		      </ode>
+		    </friction>
+		  </surface>
+		</collision>
+		<visual name="visual">
+		  <geometry>
+		    <box>
+		      <size>0.1016 0.0762 0.00254</size>
+		    </box>
+		  </geometry>
+		  <material>
+			<ambient>0 0 1 1</ambient>  
+			<diffuse>0 0 1 1</diffuse>
+			<specular>0.1 0.1 0.1 1</specular>
+		  </material>
+		</visual>
+	</link>	
+	<link name="sldPlantarRoll">
+		<pose relative_to="lnkPlantar">0 0 0 1.5708 0 0</pose>	
+		<inertial>
+		  <mass>.01</mass>
 		  <inertia>
-		    <ixx>0.01</ixx>  <iyy>0.01</iyy>
-		    <izz>0.001</izz>
+		    <ixx>0.000001</ixx>  <iyy>0.000001</iyy>
+		    <izz>0.000001</izz>
+		    <ixy>0</ixy>
+		    <ixz>0</ixz>
+		    <iyz>0</iyz>
+		  </inertia>
+		</inertial>		
+		<visual name="visual">
+		  <geometry>
+		    <cylinder>
+		      <radius>0.00508</radius>
+		      <length>0.0254</length>
+		    </cylinder>
+		  </geometry>
+		  <material>
+		    <ambient>0 1 0 1</ambient>  <diffuse>0 1 0 1</diffuse>  <specular>0.1 0.1 0.1 1</specular>
+		  </material>
+		</visual>
+	</link>			
+	<link name="sldPlantarPitch">
+		<pose relative_to="jntPlantar">0 0 0 0 1.5708 0</pose>	
+		<inertial>
+		  <mass>.01</mass>
+		  <inertia>
+		    <ixx>0.000001</ixx>  <iyy>0.000001</iyy>
+		    <izz>0.000001</izz>
+		    <ixy>0</ixy>
+		    <ixz>0</ixz>
+		    <iyz>0</iyz>
+		  </inertia>
+		</inertial>		
+		<visual name="visual">
+		  <geometry>
+		    <cylinder>
+		      <radius>0.00508</radius>
+		      <length>0.0254</length>
+		    </cylinder>
+		  </geometry>
+		  <material>
+		    <ambient>0 1 0 1</ambient>  <diffuse>0 1 0 1</diffuse>  <specular>0.1 0.1 0.1 1</specular>
+		  </material>
+		</visual>
+	</link>		
+	<link name="lnkMetatarsal">
+		<pose relative_to="frmPlantarTop">0 0 0.06235 0 0 0</pose>
+		<inertial>
+		  <mass>.23</mass>
+		  <inertia>
+		    <ixx>0.000311</ixx>  <iyy>0.000311</iyy>
+		    <izz>0.000005</izz>
 		    <ixy>0</ixy>
 		    <ixz>0</ixz>
 		    <iyz>0</iyz>
@@ -263,24 +352,24 @@
 		<visual name="visual">
 		  <geometry>
 		    <cylinder>
-		      <radius>0.1</radius>
-		      <length>2</length>
+		      <radius>0.00635</radius>
+		      <length>0.12700</length>
 		    </cylinder>
 		  </geometry>
 		  <material>
-		    <ambient>1 0 0 1</ambient>  <diffuse>1 0 0 1</diffuse>
+		    <ambient>0.5 0.5 0.5 1</ambient>  <diffuse>0.5 0.5 0.5 1</diffuse>
 		    <specular>0.1 0.1 0.1 1</specular>
 		  </material>
 		</visual>
 	</link>	 
-	
-	<link name="lnkL">
-		<pose relative_to="K0">0 -1 0 1.6 0 0</pose>
+		
+	<link name="lnkCalcaneus">
+		<pose relative_to="frmProximalMetatarsal">0 0 0.0366617 0 0 0</pose>
 		<inertial>
-		  <mass>0.5</mass>
+		  <mass>.132</mass>
 		  <inertia>
-		    <ixx>0.01</ixx>  <iyy>0.01</iyy>
-		    <izz>0.001</izz>
+		    <ixx>0.00006</ixx>  <iyy>0.00006</iyy>
+		    <izz>0.000003</izz>
 		    <ixy>0</ixy>
 		    <ixz>0</ixz>
 		    <iyz>0</iyz>
@@ -289,36 +378,61 @@
 		<visual name="visual">
 		  <geometry>
 		    <cylinder>
-		      <radius>0.1</radius>
-		      <length>2</length>
+		      <radius>0.00635</radius>
+		      <length>0.0733235</length>
 		    </cylinder>
 		  </geometry>
 		  <material>
-		    <ambient>1 0 0 1</ambient>  <diffuse>1 0 0 1</diffuse>
+		    <ambient>0.5 0.5 0.5 1</ambient>  <diffuse>0.5 0.5 0.5 1</diffuse>
 		    <specular>0.1 0.1 0.1 1</specular>
 		  </material>
-		</visual>		
+		</visual>
 	</link>
 	
-	<frame name="K0" attached_to="lnkTibia">
-		<pose>0 0 1 0 0 0</pose>		
+	<frame name="frmProximalMetatarsal" attached_to="lnkMetatarsal">
+		<pose>0 0 0.06235 1.5708 0 0</pose>		
 	</frame>
-	 
-      <joint name="jntPlantar" type="universal">
-        <parent>lnkPlantar</parent>
-        <child>lnkTibia</child>
-        <pose relative_to="lnkPlantar">0 0 0.1 0 .75 0</pose> 
-        <axis>
-          <xyz>1 0 0</xyz>
-        </axis>
-        <axis2>
-          <xyz>0 1 0</xyz>
-        </axis2>
-      </joint>
-      <joint name="weld1" type="fixed">
-      	<parent>lnkTibia</parent>
-      	<child>lnkL</child>
-      </joint>	  
+	
+	<frame name="frmPlantarTop" attached_to="lnkPlantar">
+		<pose>0 0 0.000127 1.0472 -0.17453 0</pose>		
+	</frame>		
+	
+	<joint name="weld1" type="fixed">
+		<parent>lnkMetatarsal</parent>
+		<child>lnkCalcaneus</child>
+		<pose>0 0 0 0 0 0</pose> 		
+	</joint> 
+	
+	<joint name="weld2" type="fixed">
+		<parent>lnkMetatarsal</parent>
+		<child>sldPlantarPitch</child>
+		<pose>0 0 0 0 0 0</pose> 		
+	</joint>
+	
+	<joint name="weld3" type="fixed">
+		<parent>lnkPlantar</parent>
+		<child>sldPlantarRoll</child>
+		<pose>0 0 0 0 0 0</pose> 		
+	</joint>
+	<!--
+	<joint name="weld4" type="fixed">
+		<parent>lnkCalcaneus</parent>
+		<child>lnkHeel</child>
+		<pose>0 0 0 0 0 0</pose> 		
+	</joint>	
+	-->		
+	<joint name="jntPlantar" type="universal">
+		<parent>lnkPlantar</parent>
+		<child>lnkMetatarsal</child>
+		<pose relative_to="lnkPlantar">0 0 0.000127 0 0 0</pose> 
+		<axis>
+		  <xyz>0 1 0</xyz>
+		</axis>
+		<axis2>
+		  <xyz>1 0 0</xyz>
+		</axis2>		
+	</joint>    
+	 		     	
       </model>       
     </world>
 </sdf>
